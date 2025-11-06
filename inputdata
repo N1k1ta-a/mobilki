@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+
+void main(List<String> args) {
+  runApp(MaterialApp(home: Scaffold(body: CustomTextEdit())));
+}
+
+class CustomTextEdit extends StatefulWidget {
+  const CustomTextEdit({super.key});
+
+  @override
+  State<CustomTextEdit> createState() => _CustomTextEditState();
+}
+
+class _CustomTextEditState extends State<CustomTextEdit> {
+  final controller = TextEditingController();
+  String textUnput = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'ФИО',
+            helperText: 'Введите фамилию, имя, отцество',
+          ),
+        ),
+
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              textUnput = controller.text;
+              controller.clear();    
+            });
+          },
+          child: Text('Отправить'),
+        ),
+        Text(textUnput),
+
+      ],
+    );
+  }
+}
