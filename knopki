@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+void main(List<String> args) {
+  runApp(MaterialApp(home: MyWidget(),),);
+  
+}
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Домашний экран"),
+          FilledButton(onPressed: () async {var maks = await Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage(message: 'message',)));}, child: Text('Вперёд'))
+        ],
+      ),
+    ),);
+  }
+}
+class SecondPage extends StatelessWidget {
+  final String message;
+  const SecondPage({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("SecondPage"),),
+      body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Второй экран"),
+          
+          FilledButton(onPressed: (){Navigator.pop(context, '0');}, child: Text('Назад'),), Text("Получено: $message")
+        
+        ],
+      ),
+    ),);
+  }
+}
