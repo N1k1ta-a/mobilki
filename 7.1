@@ -1,0 +1,91 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Music Player',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const SongsListScreen(),
+    );
+  }
+}
+
+class SongsListScreen extends StatelessWidget {
+  const SongsListScreen({super.key});
+
+  final List<Map<String, String>> songs = const [
+    {'title': 'Bohemian Rhapsody', 'artist': 'Queen'},
+    {'title': 'Hotel California', 'artist': 'Eagles'},
+    {'title': 'Stairway to Heaven', 'artist': 'Led Zeppelin'},
+    {'title': 'Imagine', 'artist': 'John Lennon'},
+    {'title': 'Smells Like Teen Spirit', 'artist': 'Nirvana'},
+    {'title': 'Billie Jean', 'artist': 'Michael Jackson'},
+    {'title': 'Like a Rolling Stone', 'artist': 'Bob Dylan'},
+    {'title': 'Hey Jude', 'artist': 'The Beatles'},
+    {'title': 'What\'s Going On', 'artist': 'Marvin Gaye'},
+    {'title': 'Yesterday', 'artist': 'The Beatles'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Explore Songs'),
+        centerTitle: true,
+      ),
+      body: ListView.builder(
+        itemCount: songs.length,
+        itemBuilder: (context, index) {
+          final song = songs[index];
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            elevation: 2,
+            child: ListTile(
+              leading: const Icon(
+                Icons.music_note,
+                color: Colors.blue,
+                size: 30,
+              ),
+              title: Text(
+                song['title']!,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              subtitle: Text(
+                song['artist']!,
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 14,
+                ),
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey,
+                size: 16,
+              ),
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Playing: ${song['title']} - ${song['artist']}'),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
