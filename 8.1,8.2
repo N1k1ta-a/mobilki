@@ -1,0 +1,167 @@
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      darkTheme: ThemeData.dark(),
+      home: HomeScreen()
+    )
+  );
+}
+
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final controller = TextEditingController();
+  final controller1 = TextEditingController();
+  final controller2 = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SharedPreferences.getInstance().then((prefs) {
+      controller.text = prefs.getString("fio") ?? "";
+      controller1.text = prefs.getString("email") ?? "";
+      controller2.text = prefs.getString("phone") ?? "";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 50, 
+              backgroundImage: AssetImage('assets/images/avatar.jpg')
+            ),
+            SizedBox(height: 50,),
+            TextFormField(
+              controller: controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'ФИО',
+                helperText: "Введите фамилию, имя, отчество",
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Введите имя';
+                }
+                return null;
+              }
+            ),
+            SizedBox(height: 50,),
+            TextFormField(
+              controller: controller1,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'email',
+                helperText: "Введите почту",
+              ),
+              validator:(value) {
+                if (value == null || value.isEmpty) {
+                  return 'Введите email!';
+                }
+                if (!value.contains('@') || !value.contains('.')) {
+                  return 'Введите корректный email!';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 50,),
+            TextFormField(
+              controller: controller2,
+              maxLength: 10,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Номер телефона',
+                helperText: "Введите номер телефона",
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Введите номер телефона';
+                }
+                if (value.length < 10) {
+                  return 'Номер слишком короткий';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 50,),
+            
+            Container(
+              width: 500,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.yellow, 
+                borderRadius: BorderRadius.circular(8), 
+              
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.yellow,
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Изменения успешно сохранены')),
+                    );
+                  }
+                  SharedPreferences.getInstance().then((prefs) {
+                    prefs.setString("fio", controller.text);
+                    prefs.setString("email", controller1.text);
+                    prefs.setString("phone", controller2.text);
+                  });
+                },
+                child: Text("сохранить",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+            SizedBox(width: 50, height: 20,),
+            Container(
+              width: 500,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.yellow, 
+                borderRadius: BorderRadius.circular(8), 
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.yellow,
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: TextButton(
+                onPressed: () {
+                  SharedPreferences.getInstance().then((prefs) {
+                    prefs.clear();
+                  });
+                },
+                child: Text("очистить",
+                  style: TextStyle(color: Colors.black), 
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
