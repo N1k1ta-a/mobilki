@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/models/item.dart';
+import 'package:flutter_application_7/item.dart';
 
 class DetailScreen extends StatelessWidget {
   final Item item;
@@ -11,9 +11,10 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBar(title: Text("данные"),),
       body: Column(children: [
 
-        Text(item.name),
-        Text(item.hobby),
-        Text(item.email),
+        Text("Моё имя: ${item.name}"),
+        Text("Моя Фамилия: ${item.hobby}"),
+        Text("Почта для обращения: ${item.email}"),
+        Text("Название курса: ${item.description}")
 
 
       ],),

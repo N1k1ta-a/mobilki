@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/models/item.dart';
-import 'package:flutter_application_2/screens/detail_screen.dart';
+import 'package:flutter_application_7/item.dart';
+import 'package:flutter_application_7/screens/detail_screen.dart';
+
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -22,14 +23,14 @@ class _MyWidgetState extends State<Homescreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("123"),),
+    return Scaffold(appBar: AppBar(title: Text("Регистрация"),),
     body: Form(
       key: formKey, 
       child: Column(
       children: [
         TextFormField(
           controller: nameController,
-          decoration: InputDecoration(labelText: "Name"),
+          decoration: InputDecoration(labelText: "Имя"),
         validator: (value) {
           if (value == null || value.length < 3) {
             return "неправильное имя";
@@ -38,7 +39,7 @@ class _MyWidgetState extends State<Homescreen> {
         },),
         TextFormField(
           controller: hobbyController,
-          decoration: InputDecoration(labelText: "хобби"),
+          decoration: InputDecoration(labelText: "Фамилия"),
                 validator: (value) {
           if (value == null || value.length < 3) {
             return "неправильное имя";
@@ -47,10 +48,10 @@ class _MyWidgetState extends State<Homescreen> {
         },),
         TextFormField(
           controller: descriptionController,
-          decoration: InputDecoration(labelText: "о себе"),
+          decoration: InputDecoration(labelText: "курс"),
                 validator: (value) {
           if (value == null || value.length < 3) {
-            return "неправильное имя";
+            return "неверный курс";
           } return null;
            
         },),
@@ -75,7 +76,8 @@ class _MyWidgetState extends State<Homescreen> {
               DetailScreen(item: Item(
                 name: nameController.text, 
                 hobby: hobbyController.text, 
-                email: emailController.text))));
+                email: emailController.text,
+                description: descriptionController.text))));
             };
           });
         }, child: Text("сохранить")),
