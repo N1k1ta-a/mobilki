@@ -1,0 +1,176 @@
+ //main.dart
+ 
+ import 'package:flutter/material.dart';
+import 'package:flutter_application_2/screens/home_screen.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: HomeScreen(),);
+  }
+}
+
+
+// home_screen.dart
+
+import 'package:flutter/material.dart';
+import '../screens/catalog_screen.dart';
+import '../screens/profile_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Главная"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Профиль пользователя", 
+            style: TextStyle(fontSize: 20)),
+            TextButton(onPressed: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => ProfileScreen(name: 'Ryan_gosling', DateReg: '20.08.2015',))
+              );
+            }, child: Text("кнопка")),
+            Text("Каталог"),
+            TextButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CatalogScreen())
+              );
+            }, child: Text("кнопка"))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+// catalog_screen.dart
+
+import 'package:flutter/material.dart';
+import '../screens/catalog_screen.dart';
+import '../screens/profile_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Главная"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Профиль пользователя", 
+            style: TextStyle(fontSize: 20)),
+            TextButton(onPressed: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => ProfileScreen(name: 'bbp', DateReg: '10.06.2025',))
+              );
+            }, child: Text("кнопка")),
+            Text("Каталог"),
+            TextButton(onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CatalogScreen())
+              );
+            }, child: Text("кнопка"))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+// tovar_screen.dart
+
+import 'package:flutter/material.dart';
+
+class TovarScreen extends StatelessWidget {
+  final String TovarName;
+  final int Amount;
+  final String Color;
+  final int Memory;
+
+  const TovarScreen({
+    super.key, 
+    required this.TovarName, 
+    required this.Amount, 
+    required this.Color, 
+    required this.Memory,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("IPhone 12"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Название товара: $TovarName"),
+            Text("Цена: $Amount"),
+            Text("Цвет: $Color"),
+            Text("Кол-во памяти: $Memory гб"),
+            FilledButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: Text("Назад")),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+// profile_screen.dart
+
+import 'package:flutter/material.dart';
+
+class ProfileScreen extends StatelessWidget {
+  final String name;
+  final String DateReg;
+  const ProfileScreen({super.key, required this.name, required this.DateReg});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Профиль"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Профиль пользователя: $name"),
+            Text("Дата регистрации: $DateReg"),
+            TextButton(onPressed: () {
+              Navigator.pop(context);
+            }, child: Text("назад")),
+          ],
+        ),
+      ),
+    );
+  }
+}
