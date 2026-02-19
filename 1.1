@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: MyHomePage(),
+  ));
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int number = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('первое приложение'),
+      ),
+      body: Column(
+        children: [
+          Text('number = $number'),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                number = 7; // меняем значение вручную
+              });
+            },
+            child: Text('Изменить число'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('первое приложение'),
+      ),
+      body: Column(
+        children: [
+          Text('Имя: Никита'),
+          Text('Группа: ИСП 309'),
+          Text('Flutter'),
+        ],
+      ),
+    ),
+  ));
+}
+
+
+
